@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
-import UserProvider from '../../contexts/UserProvider';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+// import { useAuth } from '../../components/actions/apis';
+import { useHistory } from 'react-router-dom';
 import AuthenticatedUser from '../../components/AuthenticatedUser';
 import UnauthenticatedUser from '../../components/UnauthenticatedUser';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { signout, saveSalesforceAccessToken } from '../../redux';
 const StyledDashboard = styled.div`
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 
@@ -16,11 +18,29 @@ const StyledDashboard = styled.div`
 `;
 
 const Dashboard = () => {
-  const userData = useContext(UserProvider.Context);
+  // const { user, signout } = useAuth();
+  const history = useHistory();
+  const authenticated = useSelector((state) => state.auth.authenticated);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!authenticated) {
+      history.push('/');
+    }
+  }, [authenticated, history]);
+  const logout = () => {
+    dispatch(signout());
+  };
   return (
     <StyledDashboard>
-      {userData ? (
-        <AuthenticatedUser user={userData} />
+      {user ? (
+        <AuthenticatedUser
+          user={user}
+          signout={logout}
+          dispatch={dispatch}
+          saveSalesforceAccessToken={saveSalesforceAccessToken}
+        />
       ) : (
         <UnauthenticatedUser />
       )}

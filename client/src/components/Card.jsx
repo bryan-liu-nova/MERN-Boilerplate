@@ -14,6 +14,7 @@ const StyledCard = styled.div`
 
   &:hover {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    cursor: pointer
   }
 
   .logo {
@@ -30,13 +31,14 @@ const StyledCard = styled.div`
   }
 `;
 
-const Card = ({ img, txt, href, color, fcn }) => {
+const Card = ({ img, txt, href, color, onClick }) => {
   return (
-    <StyledCard onClick={() => (fcn ? fcn() : window.location = href)} color={color}>
+    <StyledCard onClick={onClick} color={color}>
       <div
         className="logo"
         style={{
-          background: `url("${img}") no-repeat center center / 50% ${color}`}}
+          background: `url("${img}") no-repeat center center / 50% ${color}`,
+        }}
       />
       <p className="card-name">{txt}</p>
     </StyledCard>

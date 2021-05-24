@@ -1,24 +1,33 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  provider: {
+  id: {
     type: String,
     required: true,
+  },
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  given_name: {
+    type: String,
+  },
+  family_name: {
+    type: String,
   },
   providerId: {
     type: String,
+  },
+  refreshToken: {
+    type: String,
     required: true,
   },
-  displayName: {
+  accessToken: {
     type: String,
   },
-  firstName: {
-    type: String,
-  },
-  lastName: {
-    type: String,
-  },
-  image: {
+  salesforceAccessToken: {
     type: String,
   },
   createdAt: {

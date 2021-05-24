@@ -3,15 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@firebase/app": "0.6.13",
+    "@firebase/auth": "0.16.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "dotenv": "^10.0.0",
+    "firebase": "8.2.1",
     "http-proxy-middleware": "^1.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-firebase-hooks": "2.2.0",
+    "react-redux": "7.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-toastify": "^7.0.4",
+    "redux": "4.0.5",
+    "redux-logger": "3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "2.3.0",
     "styled-components": "^5.1.1"
   },
   "scripts": {
@@ -37,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-prettier": "^3.1.4"
+    "eslint-plugin-prettier": "^3.1.4",
+    "redux-devtools-extension": "2.13.8"
   }
 }

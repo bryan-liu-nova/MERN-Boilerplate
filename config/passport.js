@@ -38,38 +38,38 @@ module.exports = function (passport) {
     ),
   );
 
-  passport.use(
-    new FacebookStrategy(
-      {
-        clientID: process.env.FACEBOOK_CLIENT_ID,
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: '/auth/facebook/callback',
-        proxy: true,
-      },
-      async (accessToken, refreshToken, profile, done) => {
-        const newUser = {
-          provider: profile.provider,
-          providerId: profile.id,
-          displayName: profile.displayName,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-        };
-        try {
-          let user = await User.findOne({
-            providerId: profile.id,
-          });
-          if (user) {
-            done(null, user);
-          } else {
-            user = await User.create(newUser);
-            done(null, user);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      },
-    ),
-  );
+  // passport.use(
+  //   new FacebookStrategy(
+  //     {
+  //       clientID: process.env.FACEBOOK_CLIENT_ID,
+  //       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  //       callbackURL: '/auth/facebook/callback',
+  //       proxy: true,
+  //     },
+  //     async (accessToken, refreshToken, profile, done) => {
+  //       const newUser = {
+  //         provider: profile.provider,
+  //         providerId: profile.id,
+  //         displayName: profile.displayName,
+  //         firstName: profile.name.givenName,
+  //         lastName: profile.name.familyName,
+  //       };
+  //       try {
+  //         let user = await User.findOne({
+  //           providerId: profile.id,
+  //         });
+  //         if (user) {
+  //           done(null, user);
+  //         } else {
+  //           user = await User.create(newUser);
+  //           done(null, user);
+  //         }
+  //       } catch (err) {
+  //         console.log(err);
+  //       }
+  //     },
+  //   ),
+  // );
 
   passport.serializeUser((user, done) => {
     done(null, user._id);

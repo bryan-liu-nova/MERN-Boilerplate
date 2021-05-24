@@ -9,6 +9,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const connectDB = require('./config/db');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 // Config
 dotenv.config({ path: './config/config.env' });
@@ -16,9 +17,6 @@ require('./config/passport')(passport);
 
 // Environment Varibles
 const PORT = process.env.PORT || 5000;
-
-// Connect to DB
-connectDB();
 
 // Start Server
 const app = express();
@@ -31,6 +29,9 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
 // Logging Middleware
 app.use(morgan('dev'));
+
+// parse various different custom JSON types as JSON
+app.use(bodyParser.json());
 
 // Sessions Middleware
 app.use(
@@ -46,10 +47,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Connect to DB
+connectDB();
+
+// const db = result.db('users');
+// const usersCollections = db.collection('quotes');
+// usersCollections.insertOne({ data: 'asdfasdfasd' });
+
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
-
 // Production Mode
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
